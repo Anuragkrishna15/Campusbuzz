@@ -1,1 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampusBuzz</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase App and Database SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <style>
+        .news-section {
+            margin-bottom: 20px;
+        }
+        .news-item {
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>CampusBuzz News</h1>
+
+    <div id="events" class="news-section">
+        <h2>Events</h2>
+    </div>
+
+    <div id="couples" class="news-section">
+        <h2>Couples</h2>
+    </div>
+
+    <div id="fights" class="news-section">
+        <h2>Fights</h2>
+    </div>
+
+    <div id="teachers" class="news-section">
+        <h2>Teachers</h2>
+    </div>
+
+    <div id="students" class="news-section">
+        <h2>Students</h2>
+    </div>
+
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-analytics.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = {
+          apiKey: "AIzaSyCRRnqkLVK3g9FhlKwtIjWC2_JHp---s2I",
+          authDomain: "campusbuzz-c7beb.firebaseapp.com",
+          projectId: "campusbuzz-c7beb",
+          storageBucket: "campusbuzz-c7beb.firebasestorage.app",
+          messagingSenderId: "396894772471",
+          appId: "1:396894772471:web:522c521a7d07b4152407f2",
+          measurementId: "G-KLVBF7KE5F"
+        };
+      
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+    
+        const db = firebase.database();
+         
+            function fetchNews(category, elementId) {
+                db.ref(category).on("value", (snapshot) => {
+                    const newsContainer = document.getElementById(elementId);
+                    newsContainer.innerHTML = "";
+                    snapshot.forEach((childSnapshot) => {
+                        const newsItem = childSnapshot.val();
+                        const newsHtml = `<div class="news-item">
+                            <h3>${newsItem.title}</h3>
+                            <p>${newsItem.description}</p>
+                            <small>By ${newsItem.author} - ${new Date(newsItem.timestamp).toLocaleDateString()}</small>
+                        </div>`;
+                        newsContainer.innerHTML += newsHtml;
+                    });
+                });
+            }
+         
+            // Fetch news for each category
+            fetchNews("events", "events");
+            fetchNews("couples", "couples");
+            fetchNews("fights", "fights");
+            fetchNews("teachers", "teachers");
+            fetchNews("students", "students");
+         </script>
+      </script>
+
+</body>
+</html>
+
+
 
