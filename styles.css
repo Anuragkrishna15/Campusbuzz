@@ -36,3 +36,31 @@ footer {
     bottom: 0;
     width: 100%;
 }
+header h1 {
+    font-size: 2em;
+    margin: 0;
+    padding-bottom: 0.5em;
+}
+
+.news-item {
+    background: #fff;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.news-item h3 {
+    margin: 0;
+    color: #333;
+}
+
+.news-item p {
+    margin: 0.5em 0;
+    color: #666;
+}
+
+.news-item small {
+    color: #999;
+    font-size: 0.85em;
+}
